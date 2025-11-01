@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&S - Wedding Memories</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      text-align: center;
+      background: linear-gradient(180deg, #fff0f6, #ffe6eb);
+      color: #444;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: rgba(255, 182, 193, 0.3);
+      padding: 20px 0;
+      font-size: 32px;
+      font-weight: bold;
+      color: #b46a76;
+      letter-spacing: 2px;
+    }
+
+    .card {
+      background: white;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+
+    input[type="file"] {
+      margin: 20px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background: linear-gradient(45deg, #d4a373, #f0c98a);
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    #msg {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #6d2c3b;
+      white-space: pre-line;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <header>💍 A & S 💍</header>
+
+  <div class="card">
+    <p>شارك صورتك معنا في هذا اليوم الجميل ❤️</p>
+
+    <input type="file" id="fileInput" accept="image/*" capture="environment" />
+    <br />
+    <button onclick="upload()">رفع الصورة 📸</button>
+
+    <div id="msg"></div>
+  </div>
+
+  <footer>© 2025 - لحظاتنا الجميلة 💕</footer>
+
+  <script>
+    async function upload() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return alert('اختر صورة أولاً 🌸');
+
+      document.getElementById('msg').innerText = 'جاري الرفع... ⏳';
+
+      const form = new FormData();
+      form.append('file', file, file.name);
+
+      // 🟢 ضع هنا رابط السكربت من Google Apps Script
+      const scriptURL = "https://script.google.com/macros/s/AKfycbwYxi-yusN4h4l13_31r_xgktSDL9JLcPvFY1GYi3CYKM04bXVXeUKpRWF5dU4Z0qGysw/exec";
+
+      try {
+        const res = await fetch(scriptURL, { method: 'POST', body: form });
+        const text = await res.text();
+        document.getElementById('msg').innerText = text;
+      } catch (err) {
+        document.getElementById('msg').innerText = 'حدث خطأ أثناء الرفع 😢';
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
